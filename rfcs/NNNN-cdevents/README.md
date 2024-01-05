@@ -17,7 +17,7 @@ Must be one of `provisional`, `implementable`, `implemented`, `deferred`, `rejec
 
 ## Summary
 
-CDEvents Receiver for flux. Takes a cdevent sent to the receiver webhook URL, verifies it and checks the cdevent type against spec.Events.
+CDEvents Receiver for flux. Takes a cdevent sent to the receiver webhook URL, verifies it and checks the cdevent type against spec.Events, then triggers reconciliation.
 <!--
 One paragraph explanation of the proposed feature or enhancement.
 -->
@@ -32,8 +32,7 @@ this RFC. Describe why the change is important and the benefits to users.
 
 ### Goals
 
-Integrate CDEvents into Flux, this receiver along with a provider that is planned in a separate RFC.
-
+Integrate CDEvents into Flux with a CDEvents Receiver.
 <!--
 List the specific goals of this RFC. What is it trying to achieve? How will we
 know that this has succeeded?
@@ -41,7 +40,7 @@ know that this has succeeded?
 
 ### Non-Goals
 
-The provider will be handled as a separate RFC in the future.
+a CDEvent provider will be handled as a separate RFC in the future.
 
 <!--
 What is out of scope for this RFC? Listing non-goals helps to focus discussion
@@ -80,7 +79,26 @@ This is a good place to incorporate suggestions made during discussion of the RF
 
 ## Design Details
 
-Adding a receiver for CDEvents that works much like the other event-based receivers already implemented. The user will be able to write a yaml file for the receiver and deploy it to their cluster. The receiver takes the payload sent to the webhook URL, checks the headers for the event type, and filters out events based on the user-defined list of events in spec.Events. If left empty this filtering will not take place. It then creates a CDEvent, using the [CDEvents Go SDK](https://github.com/cdevents/sdk-go) to create a CDEvent from the payload body, and verifies it also  using the Go SDK. 
+Adding a receiver for CDEvents that works much like the other event-based receivers already implemented. The user will be able to write a yaml file for the receiver and deploy it to their cluster. The receiver takes the payload sent to the webhook URL, checks the headers for the event type, and filters out events based on the user-defined list of events in spec.Events. If left empty this filtering will not take place. It then creates a CDEvent, using the [CDEvents Go SDK](https://github.com/cdevents/sdk-go) to create a CDEvent from the payload body, and verifies it also using the Go SDK. Valid events will then trigger reconciliation of the resources.
+
+```
+apiVersion: notification.toolkit.fluxcd.io/v1
+kind: Receiver
+metadata:
+  name: cdevents-receiver
+  namespace: flux-system
+spec:
+  type: cdevents
+  events:
+    - "cd.change.merged.v1"
+  secretRef:
+    name: receiver-token
+  resources:
+    - kind: Kustomization
+      apiVersion: kustomize.toolkit.fluxcd.io/v1
+      name: podinfo
+      namespace: flux-system
+```
 
 <!--
 This section should contain enough information that the specifics of your
