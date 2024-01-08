@@ -100,6 +100,8 @@ spec:
       namespace: flux-system
 ```
 
+![User Flowchart](Flux-CDEvents-RFC.png)
+
 <!--
 This section should contain enough information that the specifics of your
 change are understandable. This may include API specs and code snippets.
