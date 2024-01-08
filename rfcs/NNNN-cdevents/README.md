@@ -81,6 +81,8 @@ This is a good place to incorporate suggestions made during discussion of the RF
 
 Adding a receiver for CDEvents that works much like the other event-based receivers already implemented. The user will be able to write a yaml file for the receiver and deploy it to their cluster. The receiver takes the payload sent to the webhook URL, checks the headers for the event type, and filters out events based on the user-defined list of events in spec.Events. If left empty, it will act on all valid CDEvents. It then validates the payload body using the [CDEvents Go SDK](https://github.com/cdevents/sdk-go). Valid events will then trigger reconciliation of the resources.
 
+Example Receiver YAML:
+
 ```yaml
 apiVersion: notification.toolkit.fluxcd.io/v1
 kind: Receiver
@@ -90,7 +92,7 @@ metadata:
 spec:
   type: cdevents
   events:
-    - "cd.change.merged.v1"
+    - "dev.cdevents.change.merged"
   secretRef:
     name: receiver-token
   resources:
