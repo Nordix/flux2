@@ -60,6 +60,8 @@ Users of multiple CI/CD tools such as Tekton and Flux could use CDEvents as a wa
 
 For example, a user may want a Tekton `pipeline` to run once a flux resource has been reconciled. On reconciliation, Flux will emit an event with reason `ReconciliationSucceeded` which the user will have mapped in their `Provider` configuration to correspond to an `Environment.Modified` CDEvent. The CDEvent `Provider` will then send a payload with that CDEvent to a CloudEvents broker that Tekton is subscribed to, and trigger a Pipeline Run within Tekton. 
 
+![User Stories Tekton](user-stories-provider.drawio.png)
+
 
 <!--
 Optional if existing discussions and/or issues are linked in the motivation section.
