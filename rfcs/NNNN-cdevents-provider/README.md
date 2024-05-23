@@ -58,7 +58,7 @@ Add CDEvents to the list of available providers in Flux Notification controller.
 
 Users of multiple CI/CD tools such as Tekton and Flux could use CDEvents as a way to enable interoperability.
 
-For example, a user may want a Tekton `pipeline` to run once a HelmRelease flux resource has succeeded in with a Helm install. On successful helm install, Flux will emit an event with reason `InstallSucceeded` which the user will have mapped in their `Provider` configuration to correspond to an `Environment.Modified` CDEvent. The CDEvent `Provider` will then send a payload with that CDEvent, which will also contain data from the Flux event, to a CloudEvents broker that Tekton is subscribed to, and trigger a Pipeline Run within Tekton. 
+For example, a user may want a Tekton `pipeline` to run once a HelmRelease flux resource has succeeded in a Helm install. On successful helm install, Flux will emit an event with reason `InstallSucceeded` which the user will have mapped in their `Provider` configuration to correspond to an `Environment.Modified` CDEvent. The CDEvent `Provider` will then send a payload with that CDEvent, which will also contain data from the Flux event, to a CloudEvents broker that Tekton is subscribed to, and trigger a Pipeline Run within Tekton. 
 
 ![User Stories Tekton](user-stories-provider.drawio.png)
 
