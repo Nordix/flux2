@@ -33,7 +33,7 @@ CDEvents enables interoperability between supported tools in a workflow, and flu
 
 ### Goals
 
-Integrate CDEvents into Flux with a CDEvents Provider that supports user mapping of flux to CDEvent events.
+Integrate [CDEvents](https://github.com/cdevents) into Flux with a CDEvents Provider that supports user mapping of flux to CDEvent events.
 
 <!--
 Integrate CDEvents into Flux with a CDEvents Provider.
@@ -78,7 +78,7 @@ Certain use cases for CDEvents could be done alternatively using available provi
 
 Adding a Flux `Provider` for CDEvents that will send a CDEvent payload upon receiving a flux event from an alert. 
 
-The user will be able to defined a Flux `Provider` custom resource and deploy it to their cluster. This provider configuration will allow the user to define a mapping of which Flux events correspond to which CDEvent to send. Once an alert is triggered for this provider, it will send the corresponding CDEvent, based on the Flux event that caused the alert. This CDEvent will be created using the [CDEvents Go SDK](https://github.com/cdevents/sdk-go).
+The user will be able to define a Flux `Provider` custom resource and deploy it to their cluster. This provider configuration will allow the user to define a mapping of which Flux events correspond to which CDEvent to send. Once an alert is triggered for this provider, it will send the corresponding CDEvent, based on the Flux event that caused the alert. This CDEvent will be created using the [CDEvents Go SDK](https://github.com/cdevents/sdk-go).
 
 The CDEvents broker is not a part of this design and is left to the users to set up however they wish.
 
