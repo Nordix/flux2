@@ -78,7 +78,7 @@ Certain use cases for CDEvents could be done alternatively using available provi
 
 Adding a Flux `Provider` for CDEvents that will send a CDEvent payload upon receiving a flux event from an alert. 
 
-The user will be able to define a Flux `Provider` custom resource and deploy it to their cluster. This provider configuration will allow the user to define a mapping of which Flux events correspond to which CDEvent to send. Once an alert is triggered for this provider, it will send the corresponding CDEvent, based on the Flux event that caused the alert. This CDEvent will be created using the [CDEvents Go SDK](https://github.com/cdevents/sdk-go).
+The user will be able to define a Flux `Provider` custom resource and deploy it to their cluster. This provider configuration will allow the user to define a mapping of which Flux events correspond to which CDEvent to send. Once an alert is triggered for this provider, it will send the corresponding CDEvent, based on the Flux event that caused the alert. This CDEvent will be created using the [CDEvents Go SDK](https://github.com/cdevents/sdk-go). As well as the user-defined mapping, the provider will include some default mappings for Flux-Helm events in the case that the user does not provide a custom mapping.
 
 The CDEvents broker is not a part of this design and is left to the users to set up however they wish.
 
@@ -100,6 +100,21 @@ spec:
     GitOperationFailed: dev.cdevents.incident.reported
 
 ```
+
+| Helm Event                | CDEvent                         |
+| ------------------------- | ------------------------------- |
+| InstallSucceeded          | Environment.Modified            |
+| InstallFailed             | Incident.Detected               |
+|UpgradeSucceeded           | TaskRun.Finished                |
+|UpgradeFailed              | Incident.Detected               |
+|TestSucceeded              | TestCaseRun.finished            | 
+|TestFailed                 | Incident.Detected               | 
+|RollbackSucceeded          | Environment.Modified            |
+|RollbackFailed             | Incident.Detected               |
+|UninstallSucceeded         | Environment.Modified            |
+|UninstallFailed            | Incident.Detected               |
+|ReconciliationSucceeded    | Environment.Modified            | 
+|ReconciliationFailed       | Incident.Detected               | 
 
 <!--
 This section should contain enough information that the specifics of your
