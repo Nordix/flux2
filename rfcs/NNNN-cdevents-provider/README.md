@@ -101,16 +101,18 @@ spec:
 
 ```
 
+Example Default Mappings (Please note these are not final and will be open to discussion):
+
 | Helm Event                | CDEvent                         |
 | ------------------------- | ------------------------------- |
 | InstallSucceeded          | Environment.Modified            |
 | InstallFailed             | Incident.Detected               |
-|UpgradeSucceeded           | TaskRun.Finished                |
-|UpgradeFailed              | Incident.Detected               |
-|TestSucceeded              | TestCaseRun.finished            | 
-|TestFailed                 | Incident.Detected               | 
-|RollbackSucceeded          | Environment.Modified            |
-|RollbackFailed             | Incident.Detected               |
+|UpgradeSucceeded           | TaskRun.Finished (with outcome success)                |
+|UpgradeFailed              | TaskRun.Finished (with outcome failed)              |
+|TestSucceeded              | TestCaseRun.finished (outcome pass)           | 
+|TestFailed                 | TestCaseRun.finished (outcome fail)              | 
+|RollbackSucceeded          | TaskRun.Finished (with outcome success)           |
+|RollbackFailed             | TaskRun.Finished (with outcome failed)           |
 |UninstallSucceeded         | Environment.Modified            |
 |UninstallFailed            | Incident.Detected               |
 |ReconciliationSucceeded    | Environment.Modified            | 
