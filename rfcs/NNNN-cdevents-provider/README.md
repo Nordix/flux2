@@ -49,7 +49,7 @@ A CDEvent receiver is already in progress.
 
 ## Proposal
 
-Add CDEvents to the list of available `Providers` in Flux Notification controller. The user should be able to create mappings within the configuration of the `Provider` that dictates the CDEvent payload to send depending on the Flux event that triggered the alert. These CDEvent payloads should have meaningful data from the source event.
+Add CDEvents to the list of available `Providers` in Flux Notification controller. The user should be able to create mappings within the configuration of the `Provider` that dictates the CDEvent payload to send depending on the Flux event that triggered the alert. These CDEvent payloads should have meaningful data from the source event. There will be an initial focus on HelmRelease and related events as the format within Flux for those events is much more consistent.
 <!--
 Add CDEvents to the list of available providers in Flux Notification controller. The user should be able to create mappings that tell it which CDEvents to send based on the flux event. It should then send that CDEvent to the specified URL.
 -->
